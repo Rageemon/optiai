@@ -1,0 +1,52 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Build artifacts
+*.so
+.cache/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Dependencies (will be installed fresh in container)
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# Git
+.git
+.gitignore
+
+# Documentation
+docs/
+*.md
+
+# Cache files
+cache/

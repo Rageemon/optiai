@@ -1,0 +1,34 @@
+steps:
+  # Step 1: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/$PROJECT_ID/optimization-engine:$SHORT_SHA',
+      '-t', 'gcr.io/$PROJECT_ID/optimization-engine:latest',
+      '-f', 'Dockerfile',
+      '.'
+    ]
+
+  # Step 2: Push to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/optimization-engine:$SHORT_SHA']
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args:
+      - run
+      - --filename
+      - .
+      - --image
+      - gcr.io/$PROJECT_ID/optimization-engine:$SHORT_SHA
+      - --location
+      - us-central1
+      - --output
+      - /workspace/output
+
+images:
+  - 'gcr.io/$PROJECT_ID/optimization-engine:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/optimization-engine:latest'
+
+# Set timeout for deployment
+timeout: 1200s
